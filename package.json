@@ -1,0 +1,26 @@
+{
+  "name": "netmap-visualizer",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "NetMap Visualizer — transforme les exports XML Nmap en carte topologique interactive, 100 % côté client.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "selftest": "node scripts/selftest.mjs"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^4.5.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vis-network": "^9.1.9"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "vite": "^5.4.19"
+  }
+}
