@@ -1,0 +1,292 @@
+/* ============================================================
+   BantuCrea Studio — Créateur de CV
+   Feuille de style : application + 3 modèles de CV + impression
+   ============================================================ */
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f3efe7;          /* fond beige clair */
+  --card: #ffffff;        /* fond des cartes */
+  --ink: #1f2937;         /* texte principal */
+  --muted: #6b7280;       /* texte secondaire */
+  --accent: #b45309;      /* accent doré */
+  --accent-dark: #92400e;
+  --border: #e5e0d5;
+  --radius: 12px;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+/* ---------- Barre du haut ---------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 24px;
+  background: #1c1917;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand h1 { font-size: 1.25rem; }
+.brand p { font-size: 0.85rem; color: #d6c9b4; }
+
+.logo {
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+  color: #fff; font-weight: 800; font-size: 1.1rem;
+}
+
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- Boutons ---------- */
+.btn {
+  border: none; cursor: pointer;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem; font-weight: 600;
+  transition: transform 0.1s, opacity 0.2s;
+}
+.btn:hover { opacity: 0.9; }
+.btn:active { transform: scale(0.97); }
+
+.btn-primary { background: #f59e0b; color: #1c1917; }
+.btn-secondary { background: #e7e5e4; color: #1c1917; }
+.btn-ghost { background: transparent; color: #f5f0e6; border: 1px solid #57534e; }
+.btn-add {
+  width: 100%; background: #faf6ee; color: var(--accent-dark);
+  border: 1px dashed var(--accent); margin-top: 10px;
+}
+.btn-danger {
+  background: #fee2e2; color: #b91c1c;
+  padding: 5px 10px; font-size: 0.8rem; margin-top: 8px;
+}
+
+/* ---------- Mise en page ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 430px 1fr;
+  gap: 24px;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* ---------- Éditeur (formulaire) ---------- */
+.editor { display: flex; flex-direction: column; gap: 16px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card h2 { font-size: 1.05rem; margin-bottom: 14px; }
+
+.field { display: block; margin-bottom: 12px; }
+.field > span {
+  display: block; font-size: 0.82rem; font-weight: 600;
+  color: var(--muted); margin-bottom: 4px;
+}
+
+.field input,
+.field textarea,
+.field select,
+.item-card input,
+.item-card textarea,
+.item-card select {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  background: #fffdf8;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus,
+.item-card input:focus,
+.item-card textarea:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+.field textarea,
+.item-card textarea { resize: vertical; }
+input[type="color"] { height: 42px; padding: 4px; cursor: pointer; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Blocs dynamiques (expérience, formation...) */
+.item-card {
+  background: #faf6ee;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+.item-card input,
+.item-card textarea,
+.item-card select { margin-bottom: 8px; background: #fff; }
+.item-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.check-line { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); }
+
+/* Choix du modèle */
+.templates { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.template-btn {
+  border: 2px solid var(--border);
+  background: #fffdf8;
+  border-radius: 10px;
+  padding: 10px 6px;
+  cursor: pointer;
+  font-size: 0.82rem; font-weight: 700;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.template-btn.active { border-color: var(--accent); background: #fef3c7; }
+.tpl-preview { width: 100%; height: 44px; border-radius: 6px; }
+.tpl-moderne { background: linear-gradient(90deg, #1c1917 35%, #f5f0e6 35%); }
+.tpl-elegant { background: linear-gradient(180deg, #fff 55%, #44403c 55%, #44403c 62%, #fff 62%); border: 1px solid #ddd; }
+.tpl-creatif { background: linear-gradient(180deg, #b45309 40%, #fef3c7 40%); }
+
+/* ---------- Aperçu du CV ---------- */
+.preview-zone { position: sticky; top: 92px; }
+.preview-hint { text-align: center; color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
+
+.cv-sheet {
+  width: 100%;
+  max-width: 794px;              /* largeur d'une page A4 */
+  min-height: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+/* ============================================================
+   MODÈLES DE CV (le contenu généré par JavaScript)
+   ============================================================ */
+.cv { --cv-accent: #b45309; font-size: 14px; color: #222; }
+.cv h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--cv-accent);
+  border-bottom: 2px solid var(--cv-accent);
+  padding-bottom: 4px;
+  margin: 18px 0 10px;
+}
+.cv p { margin: 4px 0; }
+.cv ul { padding-left: 18px; }
+
+/* --- Modèle MODERNE : barre latérale sombre --- */
+.cv-moderne { display: grid; grid-template-columns: 260px 1fr; min-height: 900px; }
+.cv-moderne .side { background: #1c1917; color: #f5f0e6; padding: 30px 22px; }
+.cv-moderne .side h3 { color: #f59e0b; border-color: #f59e0b; }
+.cv-moderne .main { padding: 34px 30px; }
+.cv-photo {
+  width: 130px; height: 130px; object-fit: cover;
+  border-radius: 50%; border: 4px solid #f59e0b;
+  display: block; margin: 0 auto 16px;
+}
+.cv-moderne .side .contact-item { font-size: 0.85rem; margin: 6px 0; word-break: break-word; }
+.cv-name { font-size: 2rem; font-weight: 800; line-height: 1.1; }
+.cv-title { font-size: 1.05rem; color: var(--cv-accent); font-weight: 600; margin-bottom: 6px; }
+
+/* --- Modèle ÉLÉGANT : classique centré --- */
+.cv-elegant { padding: 44px 52px; font-family: Georgia, "Times New Roman", serif; }
+.cv-elegant .head { text-align: center; border-bottom: 3px double #444; padding-bottom: 16px; }
+.cv-elegant .cv-name { font-size: 2.2rem; }
+.cv-elegant .cv-title { font-style: italic; color: #444; }
+.cv-elegant h3 { text-align: center; border-bottom: 1px solid #999; color: #222; }
+.cv-elegant .contact-line { font-size: 0.85rem; color: #555; margin-top: 8px; }
+
+/* --- Modèle CRÉATIF : bandeau coloré --- */
+.cv-creatif .banner { background: var(--cv-accent); color: #fff; padding: 30px; display: flex; gap: 20px; align-items: center; }
+.cv-creatif .banner .cv-photo { margin: 0; border-color: #fff; width: 110px; height: 110px; }
+.cv-creatif .banner .cv-name { color: #fff; }
+.cv-creatif .banner .cv-title { color: #ffe9c7; }
+.cv-creatif .body { display: grid; grid-template-columns: 1fr 240px; gap: 26px; padding: 26px 30px; }
+.cv-creatif .contact-item { font-size: 0.85rem; margin: 5px 0; word-break: break-word; }
+.cv-creatif h3 { margin-top: 0; }
+
+/* Éléments communs */
+.job, .school { margin-bottom: 12px; }
+.job-head, .school-head { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.job-title, .school-title { font-weight: 700; }
+.job-company { color: var(--cv-accent); font-weight: 600; }
+.job-date, .school-date { font-size: 0.8rem; color: #666; white-space: nowrap; }
+.job-desc, .school-desc { font-size: 0.88rem; color: #444; white-space: pre-line; }
+
+.skill { margin: 8px 0; }
+.skill-name { font-size: 0.85rem; font-weight: 600; }
+.dots { letter-spacing: 2px; font-size: 0.8rem; }
+.dots .on { color: var(--cv-accent); }
+.dots .off { color: #ccc; }
+.cv-moderne .side .dots .off { color: #57534e; }
+.bar { height: 6px; background: #e7e5e4; border-radius: 4px; overflow: hidden; margin-top: 3px; }
+.bar > div { height: 100%; background: var(--cv-accent); border-radius: 4px; }
+
+.lang { display: flex; justify-content: space-between; font-size: 0.85rem; margin: 5px 0; }
+.interet-tag {
+  display: inline-block; font-size: 0.8rem;
+  border: 1px solid var(--cv-accent); color: var(--cv-accent);
+  border-radius: 20px; padding: 2px 10px; margin: 2px 4px 2px 0;
+}
+.cv-moderne .side .interet-tag { border-color: #f59e0b; color: #fcd34d; }
+
+.cv-empty {
+  padding: 80px 30px; text-align: center; color: #999;
+}
+
+/* ---------- Pied de page ---------- */
+.footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.85rem; }
+
+/* ---------- Message toast ---------- */
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #1c1917; color: #fff;
+  padding: 12px 22px; border-radius: 30px;
+  font-size: 0.9rem; opacity: 0;
+  transition: all 0.3s;
+  z-index: 50;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+/* ---------- Responsive (mobile) ---------- */
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: 1fr; }
+  .preview-zone { position: static; }
+  .cv-moderne { grid-template-columns: 1fr; }
+  .cv-creatif .body { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   IMPRESSION : on n'imprime QUE le CV
+   ============================================================ */
+@media print {
+  @page { size: A4; margin: 0; }
+  body { background: #fff; }
+  .topbar, .editor, .preview-hint, .footer, .toast { display: none !important; }
+  .layout { display: block; padding: 0; margin: 0; max-width: none; }
+  .preview-zone { position: static; }
+  .cv-sheet { box-shadow: none; border-radius: 0; max-width: none; min-height: auto; }
+  .cv-moderne { grid-template-columns: 260px 1fr !important; min-height: auto; }
+}

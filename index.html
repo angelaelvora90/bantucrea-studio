@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BantuCrea Studio — Créateur de CV</title>
+  <meta name="description" content="Créez un beau CV en quelques minutes avec BantuCrea Studio. Gratuit, simple, sans inscription." />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Librairie pour exporter le CV en PDF (nécessite internet, sinon utilisez Imprimer) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+  <!-- ===== BARRE DU HAUT ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">BC</span>
+      <div>
+        <h1>BantuCrea Studio</h1>
+        <p>Créateur de CV</p>
+      </div>
+    </div>
+    <nav class="actions">
+      <button id="btn-example" class="btn btn-ghost" type="button">✨ Exemple</button>
+      <button id="btn-reset" class="btn btn-ghost" type="button">🗑 Réinitialiser</button>
+      <button id="btn-print" class="btn btn-secondary" type="button">🖨 Imprimer</button>
+      <button id="btn-pdf" class="btn btn-primary" type="button">⬇ Télécharger PDF</button>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENU PRINCIPAL ===== -->
+  <main class="layout">
+
+    <!-- ===== COLONNE GAUCHE : FORMULAIRE ===== -->
+    <section class="editor">
+
+      <!-- Choix du modèle -->
+      <div class="card">
+        <h2>🎨 Modèle du CV</h2>
+        <div class="templates">
+          <button type="button" class="template-btn" data-template="moderne">
+            <span class="tpl-preview tpl-moderne"></span> Moderne
+          </button>
+          <button type="button" class="template-btn" data-template="elegant">
+            <span class="tpl-preview tpl-elegant"></span> Élégant
+          </button>
+          <button type="button" class="template-btn" data-template="creatif">
+            <span class="tpl-preview tpl-creatif"></span> Créatif
+          </button>
+        </div>
+        <label class="field">
+          <span>Couleur d'accent</span>
+          <input type="color" id="accent-color" value="#b45309" />
+        </label>
+      </div>
+
+      <!-- Informations personnelles -->
+      <div class="card">
+        <h2>👤 Informations personnelles</h2>
+
+        <label class="field">
+          <span>Photo (optionnel)</span>
+          <input type="file" id="photo-input" accept="image/*" />
+        </label>
+
+        <div class="grid-2">
+          <label class="field"><span>Prénom</span><input type="text" data-field="prenom" placeholder="Ex : Angela" /></label>
+          <label class="field"><span>Nom</span><input type="text" data-field="nom" placeholder="Ex : Elvora" /></label>
+        </div>
+
+        <label class="field"><span>Titre professionnel</span><input type="text" data-field="titre" placeholder="Ex : Graphiste / Développeuse web" /></label>
+
+        <div class="grid-2">
+          <label class="field"><span>Email</span><input type="email" data-field="email" placeholder="Ex : angela@mail.com" /></label>
+          <label class="field"><span>Téléphone</span><input type="tel" data-field="telephone" placeholder="Ex : +237 6 XX XX XX XX" /></label>
+        </div>
+
+        <label class="field"><span>Adresse / Ville</span><input type="text" data-field="adresse" placeholder="Ex : Douala, Cameroun" /></label>
+        <label class="field"><span>Lien (LinkedIn, portfolio…)</span><input type="text" data-field="lien" placeholder="Ex : linkedin.com/in/monprofil" /></label>
+
+        <label class="field">
+          <span>Résumé / Profil</span>
+          <textarea data-field="resume" rows="4" placeholder="Présentez-vous en 3-4 lignes : votre expérience, vos atouts, votre objectif…"></textarea>
+        </label>
+      </div>
+
+      <!-- Expériences -->
+      <div class="card">
+        <h2>💼 Expériences professionnelles</h2>
+        <div id="list-experiences"></div>
+        <button type="button" class="btn btn-add" data-add="experiences">+ Ajouter une expérience</button>
+      </div>
+
+      <!-- Formations -->
+      <div class="card">
+        <h2>🎓 Formations</h2>
+        <div id="list-formations"></div>
+        <button type="button" class="btn btn-add" data-add="formations">+ Ajouter une formation</button>
+      </div>
+
+      <!-- Compétences -->
+      <div class="card">
+        <h2>⚡ Compétences</h2>
+        <div id="list-competences"></div>
+        <button type="button" class="btn btn-add" data-add="competences">+ Ajouter une compétence</button>
+      </div>
+
+      <!-- Langues -->
+      <div class="card">
+        <h2>🌍 Langues</h2>
+        <div id="list-langues"></div>
+        <button type="button" class="btn btn-add" data-add="langues">+ Ajouter une langue</button>
+      </div>
+
+      <!-- Centres d'intérêt -->
+      <div class="card">
+        <h2>❤️ Centres d'intérêt</h2>
+        <label class="field">
+          <span>Un par ligne</span>
+          <textarea data-field="interets" rows="3" placeholder="Ex :&#10;Design graphique&#10;Musique&#10;Football"></textarea>
+        </label>
+      </div>
+
+    </section>
+
+    <!-- ===== COLONNE DROITE : APERÇU DU CV ===== -->
+    <section class="preview-zone">
+      <p class="preview-hint">👀 Aperçu en direct — chaque changement apparaît ici automatiquement</p>
+      <!-- Le CV est généré ici par app.js -->
+      <div id="cv-sheet" class="cv-sheet"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Fait avec ❤️ par <strong>BantuCrea Studio</strong> — Vos données restent dans votre navigateur, rien n'est envoyé sur internet.</p>
+  </footer>
+
+  <!-- Petit message de confirmation -->
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
