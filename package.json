@@ -1,0 +1,19 @@
+{
+  "name": "bantucrea-studio",
+  "version": "1.0.0",
+  "description": "BantuCrea Studio — NetArch : studio web de conception et d'audit d'architecture réseau d'entreprise",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  },
+  "license": "MIT"
+}
