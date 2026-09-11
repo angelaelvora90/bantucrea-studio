@@ -1,14 +1,16 @@
 {
-  "name": "netmap-visualizer",
+  "name": "bantucrea-studio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "NetMap Visualizer — transforme les exports XML Nmap en carte topologique interactive, 100 % côté client.",
+  "description": "BantuCrea Studio — Réseau & Sécurité : NetMap Visualizer (analyse d'exports Nmap) et NetArch (conception et audit d'architecture réseau).",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --host",
-    "selftest": "node scripts/selftest.mjs"
+    "selftest": "node scripts/selftest.mjs",
+    "netarch": "node netarch/server.js",
+    "test": "node --test netarch/test/*.test.js"
   },
   "dependencies": {
     "fast-xml-parser": "^4.5.3",
@@ -19,6 +21,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "jsdom": "^30.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "vite": "^5.4.19"
