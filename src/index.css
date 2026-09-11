@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-slate-950 text-slate-200 antialiased;
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Barres de défilement discrètes */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 8px;
+  border: 2px solid #020617;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Fond « radar » pointillé du graphe */
+.graph-bg {
+  background-color: #0b1220;
+  background-image: radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.13) 1px, transparent 0);
+  background-size: 26px 26px;
+}
+
+/* Infobulle vis-network */
+.vis-tooltip {
+  position: absolute;
+  visibility: hidden;
+  max-width: 330px;
+  white-space: normal;
+  padding: 10px 12px;
+  background: rgba(10, 18, 32, 0.97);
+  border: 1px solid rgba(71, 85, 105, 0.75);
+  border-radius: 10px;
+  color: #e2e8f0;
+  font-size: 12px;
+  line-height: 1.45;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  z-index: 30;
+}
+
+/* Panneau translucide */
+.panel {
+  @apply rounded-xl border border-slate-800 bg-slate-900/80 backdrop-blur-sm;
+}
+
+/* Tronquage multi-lignes */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

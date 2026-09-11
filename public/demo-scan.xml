@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Export Nmap de démonstration — parc d'entreprise fictif -->
+<nmaprun scanner="nmap" args="nmap -sV -sC -O --traceroute -oX audit.xml 10.10.0.0/24 10.10.5.0/24" start="1789088062" startstr="jeu. 10 sept. 2026 23:14:22 UTC" version="7.94" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="1000" services="1-1000"/>
+<verbose level="0"/>
+<debugging level="0"/>
+
+<!-- ========== PASSERELLE PRINCIPALE ========== -->
+<host starttime="1789088062" endtime="1789088120">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.1" addrtype="ipv4"/>
+  <address addr="00:1B:0D:3A:F2:10" addrtype="mac" vendor="Cisco Systems"/>
+  <hostnames><hostname name="gw-core.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="closed" count="995"/>
+    <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="Cisco IOS SSH" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="23"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="telnet" product="Cisco IOS telnetd" method="probed" conf="10"/>
+      <script id="telnet-encryption" output="&#10;  Telnet server does not support encryption"/>
+    </port>
+    <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Cisco IOS http config" method="probed" conf="10"/>
+      <script id="http-title" output="Cisco IOS - Administrative Interface"/>
+    </port>
+    <port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="https" product="Cisco IOS http config" tunnel="ssl" method="probed" conf="10"/></port>
+    <port protocol="udp" portid="161"><state state="open" reason="udp-response" reason_ttl="64"/><service name="snmp" product="Cisco IOS SNMP" method="probed" conf="8"/></port>
+  </ports>
+  <os>
+    <portused state="open" proto="tcp" portid="22"/>
+    <osmatch name="Cisco IOS 15.2" accuracy="94" line="68123">
+      <osclass type="router" vendor="Cisco" osfamily="IOS" osgen="15.X" accuracy="94"><cpe>cpe:/o:cisco:ios:15.2</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="1"/>
+  <uptime seconds="18123754" lastboot="jeu. 19 f&#233;vr. 2026 06:31:48 UTC"/>
+  <trace>
+    <hop ttl="1" ipaddr="10.10.0.1" rtt="0.42" host="gw-core.siege.local"/>
+  </trace>
+  <times srtt="421" rttvar="110" to="100000"/>
+</host>
+
+<!-- ========== SWITCH ========== -->
+<host starttime="1789088062" endtime="1789088140">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.2" addrtype="ipv4"/>
+  <address addr="CC:46:D6:21:8B:04" addrtype="mac" vendor="Cisco Systems"/>
+  <hostnames><hostname name="sw-etage1.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="closed" count="998"/>
+    <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Cisco small business switch http config" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="https" product="Cisco small business switch http config" tunnel="ssl" method="probed" conf="10"/></port>
+  </ports>
+  <os>
+    <osmatch name="Cisco Small Business switch" accuracy="88" line="61220">
+      <osclass type="switch" vendor="Cisco" osfamily="embedded" accuracy="88"/>
+    </osmatch>
+  </os>
+  <distance value="1"/>
+</host>
+
+<!-- ========== CONTRÔLEUR DE DOMAINE ========== -->
+<host starttime="1789088063" endtime="1789088201">
+  <status state="up" reason="arp-response" reason_ttl="128"/>
+  <address addr="10.10.0.10" addrtype="ipv4"/>
+  <address addr="00:50:56:9C:11:0A" addrtype="mac" vendor="VMware"/>
+  <hostnames><hostname name="SRV-DC01.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="filtered" count="990"/>
+    <port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="domain" product="Microsoft DNS" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="88"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="kerberos-sec" product="Microsoft Windows Kerberos" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="netbios-ssn" product="Microsoft Windows netbios-ssn" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="389"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ldap" product="Microsoft Windows Active Directory LDAP" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Windows Server 2016 Standard" ostype="Windows" method="probed" conf="10"/>
+      <script id="smb2-security-mode" output="&#10;  3.1.1:&#10;    Message signing enabled but not required"/>
+      <script id="smb-os-discovery" output="&#10;  OS: Windows Server 2016 Standard 14393 (Windows Server 2016 Standard 6.3)&#10;  Computer name: SRV-DC01&#10;  Domain name: siege.local&#10;  Forest name: siege.local"/>
+    </port>
+    <port protocol="tcp" portid="636"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ldapssl" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="3268"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ldap" product="Microsoft Windows Active Directory LDAP" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="3389"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ms-wbt-server" product="Microsoft Terminal Services" ostype="Windows" method="probed" conf="10"/></port>
+  </ports>
+  <os>
+    <osmatch name="Windows Server 2016" accuracy="93" line="70241">
+      <osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="2016" accuracy="93"><cpe>cpe:/o:microsoft:windows_server_2016</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="2"/>
+  <trace>
+    <hop ttl="1" ipaddr="10.10.0.1" rtt="0.51"/>
+    <hop ttl="2" ipaddr="10.10.0.10" rtt="0.8" host="SRV-DC01.siege.local"/>
+  </trace>
+</host>
+
+<!-- ========== SERVEUR WEB VULNÉRABLE (vedette de la démo) ========== -->
+<host starttime="1789088063" endtime="1789088230">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.12" addrtype="ipv4"/>
+  <address addr="00:50:56:9C:22:0C" addrtype="mac" vendor="VMware"/>
+  <hostnames><hostname name="WEB-SRV01.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="filtered" count="997"/>
+    <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="7.2p2 Ubuntu 4ubuntu2.2" ostype="Linux" method="probed" conf="10">
+      <cpe>cpe:/a:openbsd:openssh:7.2p2</cpe>
+    </service>
+      <script id="ssh-hostkey" output="&#10;  2048 SHA256:ok7jKD2Mk8VvggK8pcQxtq4sRkYhdJ7c7K0lO3BHEdo (RSA)"/>
+    </port>
+    <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.4.49" extrainfo="(Unix)" method="probed" conf="10">
+      <cpe>cpe:/a:apache:http_server:2.4.49</cpe>
+    </service>
+      <script id="http-server-header" output="Apache/2.4.49 (Unix)"/>
+      <script id="http-title" output="Intranet - Documentation technique"/>
+      <script id="http-vuln-cve2021-41773" output="VULNERABLE:&#10;Path traversal and file disclosure vulnerability in Apache HTTP Server 2.4.49&#10;  State: VULNERABLE (Exploitable)&#10;  IDs:  BID:111105  CVE:CVE-2021-41773  CVSS: 9.8&#10;    The Apache HTTP Server 2.4.49 is affected by a path normalization flaw allowing&#10;    an attacker to read arbitrary files and execute code when mod_cgi is enabled.&#10;  Disclosure date: 2021-10-05&#10;  References:&#10;    https://httpd.apache.org/security/vulnerabilities_24.html"/>
+    </port>
+    <port protocol="tcp" portid="3306"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="mysql" product="MySQL" version="5.5.62" method="probed" conf="10"/>
+      <script id="mysql-info" output="&#10;  Protocol: 10&#10;  Version: 5.5.62-0ubuntu0.14.04.1&#10;  Thread ID: 58291&#10;  Capabilities flags: 63487"/>
+    </port>
+  </ports>
+  <os>
+    <osmatch name="Linux 4.4 - 4.15" accuracy="96" line="66412">
+      <osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="4.X" accuracy="96"><cpe>cpe:/o:linux:linux_kernel:4</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="2"/>
+  <trace>
+    <hop ttl="1" ipaddr="10.10.0.1" rtt="0.48"/>
+    <hop ttl="2" ipaddr="10.10.0.12" rtt="0.9" host="WEB-SRV01.siege.local"/>
+  </trace>
+</host>
+
+<!-- ========== SERVEUR FTP COMPROMIS ========== -->
+<host starttime="1789088064" endtime="1789088245">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.14" addrtype="ipv4"/>
+  <address addr="00:50:56:9C:22:0E" addrtype="mac" vendor="VMware"/>
+  <hostnames><hostname name="FTP-SRV.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="filtered" count="998"/>
+    <port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="vsftpd" version="2.3.4" method="probed" conf="10"/>
+      <script id="ftp-anon" output="Anonymous FTP login allowed (FTP code 230)&#10;-rw-r--r--    1 0        0         1328128 Jun 12  2011 backup_siege.tar.gz&#10;drwxr-xr-x    2 0        0            4096 Jun 30  2011 public"/>
+      <script id="ftp-vsftpd-backdoor" output="&#10;  VULNERABLE:&#10;  vsFTPd version 2.3.4 backdoor&#10;    State: VULNERABLE (Exploitable)&#10;    IDs:  BID:48539  CVE:CVE-2011-2523  CVSS: 10.0&#10;      vsFTPd version 2.3.4 contains a backdoor which opens a shell on port 6200/tcp."/>
+    </port>
+    <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="5.3" ostype="Linux" method="probed" conf="10"/></port>
+  </ports>
+  <os>
+    <osmatch name="Linux 2.6.32" accuracy="91" line="55098">
+      <osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="91"><cpe>cpe:/o:linux:linux_kernel:2.6.32</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="2"/>
+  <trace>
+    <hop ttl="1" ipaddr="10.10.0.1" rtt="0.44"/>
+    <hop ttl="2" ipaddr="10.10.0.14" rtt="1.1" host="FTP-SRV.siege.local"/>
+  </trace>
+</host>
+
+<!-- ========== WINDOWS XP — ETERNALBLUE ========== -->
+<host starttime="1789088064" endtime="1789088290">
+  <status state="up" reason="arp-response" reason_ttl="128"/>
+  <address addr="10.10.0.15" addrtype="ipv4"/>
+  <address addr="74:E6:E2:5F:31:8C" addrtype="mac" vendor="Dell"/>
+  <hostnames><hostname name="PC-COMPTA02.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="closed" count="996"/>
+    <port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="netbios-ssn" product="Microsoft Windows netbios-ssn" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" product="Microsoft Windows XP microsoft-ds" ostype="Windows" method="probed" conf="10"/>
+      <script id="smb-vuln-ms17-010" output="&#10;  VULNERABLE:&#10;  Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)&#10;    State: VULNERABLE&#10;    IDs:  CVE:CVE-2017-0143  CVSS: 9.3&#10;    Risk factor: HIGH&#10;      A critical remote code execution vulnerability exists in Microsoft SMBv1&#10;       servers (ms17-010).&#10;    Disclosure date: 2017-03-14&#10;    References:&#10;      https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/&#10;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143"/>
+    </port>
+    <port protocol="tcp" portid="3389"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ms-wbt-server" product="Microsoft Terminal Services" ostype="Windows" method="probed" conf="10"/></port>
+  </ports>
+  <os>
+    <osmatch name="Microsoft Windows XP SP3" accuracy="98" line="24581">
+      <osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="XP" accuracy="98"><cpe>cpe:/o:microsoft:windows_xp::sp3</cpe></osclass>
+    </osmatch>
+  </os>
+  <hostscript>
+    <script id="smb-vuln-ms17-010-check" output="Host appears VULNERABLE to ms17-010 (EternalBlue / WannaCry)."/>
+  </hostscript>
+  <distance value="2"/>
+  <trace>
+    <hop ttl="1" ipaddr="10.10.0.1" rtt="0.47"/>
+    <hop ttl="2" ipaddr="10.10.0.15" rtt="1.3" host="PC-COMPTA02.siege.local"/>
+  </trace>
+</host>
+
+<!-- ========== POSTE DE DIRECTION ========== -->
+<host starttime="1789088065" endtime="1789088311">
+  <status state="up" reason="arp-response" reason_ttl="128"/>
+  <address addr="10.10.0.20" addrtype="ipv4"/>
+  <address addr="74:E6:E2:A1:4D:77" addrtype="mac" vendor="Dell"/>
+  <hostnames><hostname name="PC-DIRECTION.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="filtered" count="996"/>
+    <port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="netbios-ssn" ostype="Windows" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" ostype="Windows" method="probed" conf="10"/>
+      <script id="smb2-security-mode" output="&#10;  3.1.1:&#10;    Message signing enabled and required"/>
+    </port>
+    <port protocol="tcp" portid="3389"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="ms-wbt-server" product="Microsoft Terminal Services" ostype="Windows" method="probed" conf="10"/></port>
+  </ports>
+  <os>
+    <osmatch name="Microsoft Windows 10 22H2" accuracy="92" line="71803">
+      <osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="10" accuracy="92"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="2"/>
+</host>
+
+<!-- ========== LA POSTE COMPTABILITÉ ========== -->
+<host starttime="1789088068" endtime="1789088471">
+  <status state="up" reason="arp-response" reason_ttl="128"/>
+  <address addr="10.10.0.21" addrtype="ipv4"/>
+  <address addr="74:E6:E2:B2:66:01" addrtype="mac" vendor="Dell"/>
+  <hostnames><hostname name="PC-COMPTA01.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="filtered" count="998"/>
+    <port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="microsoft-ds" ostype="Windows" method="probed" conf="10"/>
+      <script id="smb2-security-mode" output="&#10;  3.1.1:&#10;    Message signing enabled and required"/>
+    </port>
+    <port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="128"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"/></port>
+  </ports>
+  <os>
+    <osmatch name="Microsoft Windows 11 23H2" accuracy="91" line="72901">
+      <osclass type="general purpose" vendor="Microsoft" osfamily="Windows" osgen="11" accuracy="91"><cpe>cpe:/o:microsoft:windows_11</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="2"/>
+</host>
+
+<!-- ========== IMPRIMANTE ========== -->
+<host starttime="1789088065" endtime="1789088340">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.30" addrtype="ipv4"/>
+  <address addr="3C:D9:2B:77:12:E3" addrtype="mac" vendor="Hewlett Packard"/>
+  <hostnames><hostname name="IMP-RDC.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="closed" count="996"/>
+    <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="HP LaserJet http config" method="probed" conf="10"/>
+      <script id="http-title" output="HP LaserJet Pro M404dn"/>
+      <script id="http-default-accounts" output="[HP LaserJet embedded web server] credentials found: admin:admin (factory default)&#10;Change these credentials immediately."/>
+    </port>
+    <port protocol="tcp" portid="515"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="printer" method="probed" conf="8"/></port>
+    <port protocol="tcp" portid="631"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ipp" product="CUPS" version="1.4" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="9100"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="jetdirect" method="probed" conf="8"/></port>
+  </ports>
+  <os>
+    <osmatch name="HP LaserJet Pro M404dn printer" accuracy="97" line="66311">
+      <osclass type="printer" vendor="HP" osfamily="embedded" accuracy="97"/>
+    </osmatch>
+  </os>
+  <distance value="1"/>
+</host>
+
+<!-- ========== CAMÉRA IP ========== -->
+<host starttime="1789088066" endtime="1789088365">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.31" addrtype="ipv4"/>
+  <address addr="C0:56:E3:44:9A:18" addrtype="mac" vendor="Hangzhou Hikvision Digital Technology"/>
+  <hostnames><hostname name="CAM-ENTREE.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="closed" count="996"/>
+    <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Hikvision IP camera web admin" method="probed" conf="10"/>
+      <script id="http-title" output="Hikvision DS-2CD2143G0 - Login"/>
+      <script id="http-default-accounts" output="[Hikvision IP Camera] credentials found: admin:12345 (factory default)">&#10;        <table key="Hikvision IP Camera">
+          <elem key="username">admin</elem>
+          <elem key="password">12345</elem>
+          <elem key="notes">factory default credentials</elem>
+        </table></script>
+    </port>
+    <port protocol="tcp" portid="554"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="rtsp" product="Hikvision rtspd" method="probed" conf="10"/>
+      <script id="rtsp-methods" output="OPTIONS, DESCRIBE, PLAY, PAUSE, SETUP, TEARDOWN"/>
+    </port>
+    <port protocol="tcp" portid="8000"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="unknown" method="table" conf="3"/></port>
+  </ports>
+  <os>
+    <osmatch name="Hikvision DS-2CD2143G0 IP camera" accuracy="95" line="65812">
+      <osclass type="webcam" vendor="Hikvision" osfamily="embedded" accuracy="95"/>
+    </osmatch>
+  </os>
+  <distance value="1"/>
+</host>
+
+<!-- ========== CAPTEUR IOT (Raspberry Pi) ========== -->
+<host starttime="1789088066" endtime="1789088380">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.40" addrtype="ipv4"/>
+  <address addr="B8:27:EB:9C:03:11" addrtype="mac" vendor="Raspberry Pi Foundation"/>
+  <hostnames><hostname name="iot-capteur-atelier.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="closed" count="998"/>
+    <port protocol="tcp" portid="1883"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="mqtt" product="Mosquitto" version="1.4.8" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="7.9p1" ostype="Linux" method="probed" conf="10"/></port>
+  </ports>
+  <os>
+    <osmatch name="Linux 5.10 (Raspberry Pi OS)" accuracy="89" line="64012">
+      <osclass type="specialized" vendor="Linux" osfamily="Linux" osgen="5.X" accuracy="89"><cpe>cpe:/o:linux:linux_kernel:5</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="1"/>
+</host>
+
+<!-- ========== IMPRIMANTE MAGASIN (ports filtrés) ========== -->
+<host starttime="1789088067" endtime="1789088395">
+  <status state="up" reason="arp-response" reason_ttl="64"/>
+  <address addr="10.10.0.99" addrtype="ipv4"/>
+  <address addr="3C:D9:2B:88:52:40" addrtype="mac" vendor="Hewlett Packard"/>
+  <hostnames><hostname name="IMP-MAGASIN.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="closed" count="997"/>
+    <port protocol="tcp" portid="80"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+    <port protocol="tcp" portid="9100"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="jetdirect" method="probed" conf="8"/></port>
+    <port protocol="tcp" portid="443"><state state="closed" reason="reset" reason_ttl="64"/><service name="https" method="table" conf="3"/></port>
+  </ports>
+  <os>
+    <osmatch name="HP printer" accuracy="85" line="60214">
+      <osclass type="printer" vendor="HP" osfamily="embedded" accuracy="85"/>
+    </osmatch>
+  </os>
+  <distance value="1"/>
+</host>
+
+<!-- ========== PARE-FEU DMZ (second sous-réseau) ========== -->
+<host starttime="1789088067" endtime="1789088420">
+  <status state="up" reason="echo-response" reason_ttl="63"/>
+  <address addr="10.10.5.1" addrtype="ipv4"/>
+  <address addr="00:08:A2:0D:4C:99" addrtype="mac" vendor="Netgate"/>
+  <hostnames><hostname name="fw-dmz.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="filtered" count="997"/>
+    <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="ssh" product="OpenSSH" version="8.8" ostype="FreeBSD" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="domain" product="Unbound" version="1.17" method="probed" conf="10"/></port>
+    <port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="https" product="pfSense webConfigurator" tunnel="ssl" method="probed" conf="10"/>
+      <script id="http-title" output="pfSense - Login"/>
+      <script id="ssl-cert" output="Subject: commonName=pfSense-66e2f1a3d1c2b&#10;Issuer: commonName=pfSense-66e2f1a3d1c2b&#10;Public Key type: rsa&#10;Signature Algorithm: sha256WithRSAEncryption&#10;Not valid before: 2026-01-05T00:00:00&#10;Not valid after:  2028-01-05T00:00:00"/>
+    </port>
+  </ports>
+  <os>
+    <osmatch name="FreeBSD 13.2 (pfSense 2.7)" accuracy="90" line="69940">
+      <osclass type="firewall" vendor="FreeBSD" osfamily="FreeBSD" osgen="13.X" accuracy="90"><cpe>cpe:/o:freebsd:freebsd:13.2</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="2"/>
+  <trace>
+    <hop ttl="1" ipaddr="10.10.0.1" rtt="0.46"/>
+    <hop ttl="2" ipaddr="10.10.5.1" rtt="0.9" host="fw-dmz.siege.local"/>
+  </trace>
+</host>
+
+<!-- ========== SERVEUR DE SAUVEGARDE (DMZ, propre) ========== -->
+<host starttime="1789088068" endtime="1789088450">
+  <status state="up" reason="syn-ack" reason_ttl="63"/>
+  <address addr="10.10.5.10" addrtype="ipv4"/>
+  <address addr="00:50:56:9C:33:51" addrtype="mac" vendor="VMware"/>
+  <hostnames><hostname name="BACKUP-SRV.siege.local" type="PTR"/></hostnames>
+  <ports>
+    <extraports state="filtered" count="998"/>
+    <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="ssh" product="OpenSSH" version="8.9p1 Ubuntu 3ubuntu0.10" ostype="Linux" method="probed" conf="10">
+      <cpe>cpe:/a:openbsd:openssh:8.9p1</cpe>
+    </service></port>
+    <port protocol="tcp" portid="8006"><state state="open" reason="syn-ack" reason_ttl="63"/><service name="https" product="Proxmox VE web interface" tunnel="ssl" method="probed" conf="10"/>
+      <script id="http-title" output="Proxmox Backup Server Login"/>
+    </port>
+  </ports>
+  <os>
+    <osmatch name="Linux 5.15 - 6.1" accuracy="94" line="67988">
+      <osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="5.X" accuracy="94"><cpe>cpe:/o:linux:linux_kernel:5</cpe></osclass>
+    </osmatch>
+  </os>
+  <distance value="3"/>
+  <uptime seconds="6123410" lastboot="sam. 04 juil. 2026 12:00:12 UTC"/>
+  <trace>
+    <hop ttl="1" ipaddr="10.10.0.1" rtt="0.45"/>
+    <hop ttl="2" ipaddr="10.10.5.1" rtt="0.8"/>
+    <hop ttl="3" ipaddr="10.10.5.10" rtt="1.2" host="BACKUP-SRV.siege.local"/>
+  </trace>
+</host>
+
+<runstats>
+  <finished time="1789088472" timestr="ven. 11 sept. 2026 00:01:12 UTC" summary="Nmap done at Fri Sep 11 00:01:12 2026; 512 IP addresses (14 hosts up) scanned in 169.50 seconds" elapsed="169.50" exit="success"/>
+  <hosts up="14" down="498" total="512"/>
+</runstats>
+</nmaprun>

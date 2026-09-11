@@ -1,7 +1,9 @@
-node_modules/
-npm-debug.log*
-.DS_Store
+node_modules
+dist
 *.local
+.DS_Store
+.vite
+npm-debug.log*
 .vscode/
 .idea/
 tmp-*.mjs
