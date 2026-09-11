@@ -140,6 +140,7 @@ test('audit : un schéma sain ne remonte que l’absence de redondance', () => {
   assert.equal(audit.counts.high, 0);
   // Seule observation légitime : la remontée pare-feu → switch n’a pas de lien de secours.
   assert.deepEqual(audit.findings.map((f) => f.rule), ['single-point-of-failure']);
+  assert.equal(audit.findings[0].title, '1 liaison sans redondance', 'accord au singulier');
   assert.ok(audit.score >= 85, `score = ${audit.score}`);
 });
 
@@ -280,6 +281,7 @@ test('audit : liaison d’infrastructure sans redondance', () => {
   const f = auditProject(project).findings.find((x) => x.rule === 'single-point-of-failure');
   assert.ok(f);
   assert.equal(f.severity, 'medium');
+  assert.match(f.title, /^\d+ liaisons sans redondance$/, 'accord au pluriel');
 });
 
 test('audit : score dégradé par la gravité et tri des constats', () => {

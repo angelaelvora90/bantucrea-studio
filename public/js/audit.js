@@ -229,6 +229,11 @@ export function analyzeReachability(project, fromId, toId, service = 'any') {
 
 // ── Audit complet ────────────────────────────────────────────────────────────
 
+/** Accord en nombre : pl(2, 'liaison') → 'liaisons'. */
+function pl(count, singular, plural = `${singular}s`) {
+  return count > 1 ? plural : singular;
+}
+
 const RISKY_SERVICES = [
   { ports: ['22'], name: 'SSH' },
   { ports: ['3389'], name: 'RDP' },
@@ -454,7 +459,7 @@ export function auditProject(project) {
     if (unsegmented.length) {
       add({
         severity: 'medium',
-        title: `${unsegmented.length} équipement(s) IoT/caméra non segmenté(s)`,
+        title: `${unsegmented.length} ${pl(unsegmented.length, 'équipement')} IoT/caméra non ${pl(unsegmented.length, 'segmenté')}`,
         detail: `${unsegmented.map((n) => n.name).join(', ')} : les objets connectés doivent vivre dans un VLAN isolé.`,
         targets: unsegmented.map((n) => n.id),
         rule: 'iot-vlan',
@@ -473,7 +478,7 @@ export function auditProject(project) {
   if (criticalBridges.length) {
     add({
       severity: 'medium',
-      title: `${criticalBridges.length} liaison(s) sans redondance`,
+      title: `${criticalBridges.length} ${pl(criticalBridges.length, 'liaison')} sans redondance`,
       detail: `La rupture de ${criticalBridges.map((l) => `« ${index.byId.get(l.a).name} ↔ ${index.byId.get(l.b).name} »`).join(', ')} isole une partie du réseau.`,
       targets: [],
       rule: 'single-point-of-failure',
@@ -513,7 +518,7 @@ export function auditProject(project) {
   if (undocumented.length) {
     add({
       severity: 'low',
-      title: `${undocumented.length} équipement(s) sans adresse renseignée`,
+      title: `${undocumented.length} ${pl(undocumented.length, 'équipement')} sans adresse renseignée`,
       detail: `${undocumented.slice(0, 5).map((n) => n.name).join(', ')}${undocumented.length > 5 ? '…' : ''} : le plan d’adressage reste incomplet.`,
       targets: undocumented.map((n) => n.id),
       rule: 'undocumented',
